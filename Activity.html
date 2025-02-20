@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity </title>
+    <style>
+        canvas{
+                border:2px solid black;
+                display: block;
+                margin: 20px auto;
+        }
+        body{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="controls">
+        <h3>ACP Activity 1</h3>
+        <p>Select what you want to draw</p>
+        <button onclick="drawCircle()">Draw a Circle</button>
+        <button onclick="drawRectangle()">Draw a Rectangle</button></div>
+    <div class="Color">
+        <p>Select the color to fill your drawing</p>
+        <button onclick="fillColor('red')">Red</button>
+        <button onclick="fillColor('blue')">Blue</button>
+        <button onclick="fillColor('black')">Black</button>
+    </div>
+
+    <canvas id="mycanvas" width="400" height="400"></canvas>
+    <script>
+        const canvas= document.getElementById("mycanvas");
+        const ctx = canvas.getContext("2d");
+
+        let selectedShape = null;
+        let circle = { x: 250, y: 200, radius: 50, color: null };
+        let rectangle = { x: 50, y: 50, width: 150, height: 100, color: null };
+
+        function drawCircle() {
+            selectedShape = "circle";
+            ctx.beginPath();
+            ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+
+        function drawRectangle() {
+            selectedShape = "rectangle";
+            ctx.strokeRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+        }
+
+        function isInsideCircle(x, y, circleX, circleY, radius) {
+            const dx = x - circleX;
+            const dy = y - circleY;
+            return dx * dx + dy * dy <= radius * radius;
+        }
+
+        
+        function fillColor(color) {
+            if (selectedShape === "circle") {
+                circle.color = color;
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+            } else if (selectedShape === "rectangle") {
+                rectangle.color = color;
+                ctx.fillStyle = color;
+                ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+                ctx.strokeRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+            }
+        </sr
+</body>
+</html>
